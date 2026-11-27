@@ -1,0 +1,128 @@
+# ChatModeration configuration
+# Colors use '&' codes. Placeholders are written like {player}.
+# Apply changes with /chat reload (permission: chatmoderation.admin).
+
+# How often (in ticks, 20 = 1 second) expired mutes are checked and removed.
+expiry-check-interval-ticks: 20
+
+# Minimum time between two messages from the same player.
+cooldown:
+  enabled: true
+  seconds: 2.0
+
+spam:
+  # Too many messages in a short window.
+  rate:
+    enabled: true
+    max-messages: 4
+    window-seconds: 6
+  # Same message sent again (compared ignoring case/extra spaces).
+  repeat:
+    enabled: true
+    window-seconds: 30
+    history-size: 3
+  # Too many capital letters.
+  caps:
+    enabled: true
+    min-length: 8
+    max-percent: 70
+  # Character flooding, e.g. "heyyyyyyyyy".
+  flood:
+    enabled: true
+    max-repeated-chars: 5
+  # Automatically mute players who keep triggering rate/repeat/flood.
+  auto-mute:
+    enabled: true
+    violations: 5
+    window-seconds: 60
+    duration: 5m
+    reason: "Automatic mute: chat spam"
+
+blocked-words:
+  enabled: true
+  # BLOCK = cancel the message, CENSOR = replace the word and still send it.
+  action: BLOCK
+  censor-replacement: "***"
+  # false = whole words only ("ass" will not match "class").
+  # true  = also matches inside other words (stricter, more false positives).
+  match-inside-words: false
+  # Case, accents, leetspeak (sh1t), repeated letters (shiiit) and
+  # spaced letters (s h i t) are detected automatically.
+  words:
+    - fuck
+    - shit
+    - bitch
+    - asshole
+    - bastard
+    - mierda
+    - puta
+    - cabron
+    - gilipollas
+    - joder
+
+mute:
+  # Players with chatmoderation.bypass cannot be muted.
+  protect-bypass: true
+  default-reason: "No reason specified"
+  # Commands blocked while muted (without the slash).
+  blocked-commands:
+    - msg
+    - tell
+    - w
+    - whisper
+    - m
+    - t
+    - r
+    - reply
+    - me
+    - say
+    - mail
+
+clear-chat:
+  lines: 100
+  # Players with chatmoderation.bypass keep their chat history.
+  bypass-keeps-chat: true
+
+messages:
+  prefix: "&8[&bChatMod&8] &r"
+  no-permission: "&cYou don't have permission to do that."
+  usage-mute: "&cUsage: /mute <player> <duration> <reason> &7(e.g. 30m, 2h, 1d, 1h30m, perm)"
+  usage-unmute: "&cUsage: /unmute <player>"
+  usage-mutecheck: "&cUsage: /mutecheck <player>"
+  usage-chat: "&cUsage: /chat <toggle|reload>"
+  player-not-found: "&cPlayer '{player}' was not found."
+  invalid-duration: "&cInvalid duration '{input}'. Use e.g. 30s, 10m, 2h, 1d, 1w, 1h30m or perm."
+  cannot-mute-bypass: "&c{player} cannot be muted."
+  cannot-mute-self: "&cYou cannot mute yourself."
+  already-muted: "&c{player} is already muted. Use /unmute first."
+  permanent-label: "Permanent"
+  mute-success: "&aMuted &e{player} &afor &e{duration}&a. Reason: &f{reason}"
+  mute-staff-notify: "&e{staff} &7muted &e{player} &7({duration}): &f{reason}"
+  mute-target-notify: "&cYou have been muted ({duration}). Reason: &f{reason}"
+  unmute-success: "&aUnmuted &e{player}&a."
+  unmute-staff-notify: "&e{staff} &7unmuted &e{player}&7."
+  unmute-target-notify: "&aYou have been unmuted. You can chat again."
+  not-muted: "&e{player} &cis not muted."
+  mute-expired: "&aYour mute has expired. You can chat again."
+  muted-temporary: "&cYou are muted. Reason: &f{reason} &c- remaining: &e{remaining}&c."
+  muted-permanent: "&cYou are permanently muted. Reason: &f{reason}&c."
+  muted-command: "&cYou cannot use that command while muted."
+  check-not-muted: "&e{player} &7is &anot muted&7."
+  check-header: "&8&m-----&r &bMute info: &e{player} &8&m-----"
+  check-reason: "&7Reason: &f{reason}"
+  check-staff: "&7Muted by: &f{staff}"
+  check-issued: "&7Issued: &f{issued}"
+  check-expires: "&7Expires: &f{expires}"
+  check-remaining: "&7Remaining: &f{remaining}"
+  chat-disabled: "&cGlobal chat is currently disabled."
+  chat-enabled-broadcast: "&aGlobal chat has been &lenabled&r&a by &e{player}&a."
+  chat-disabled-broadcast: "&cGlobal chat has been &ldisabled&r&c by &e{player}&c."
+  chat-cleared: "&bChat was cleared by &e{player}&b."
+  reload-success: "&aConfiguration reloaded."
+  reload-failed: "&cReload failed: {error}"
+  cooldown: "&cPlease wait &e{time} &cbefore sending another message."
+  spam-rate: "&cYou are sending messages too fast. Slow down!"
+  spam-repeat: "&cDo not repeat the same message."
+  spam-flood: "&cPlease do not flood the chat with repeated characters."
+  spam-caps: "&cPlease do not use excessive capital letters."
+  blocked-word: "&cYour message contains a word that is not allowed."

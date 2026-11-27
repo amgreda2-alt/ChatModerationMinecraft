@@ -1,0 +1,48 @@
+name: ChatModeration
+version: '${project.version}'
+main: dev.chatmoderation.ChatModerationPlugin
+api-version: '1.21'
+description: Anti-spam, word filter, mutes and chat control for Spigot/Paper.
+author: ChatModeration
+
+commands:
+  mute:
+    description: Temporarily or permanently mute a player.
+    usage: /mute <player> <duration> <reason>
+  unmute:
+    description: Remove an active mute.
+    usage: /unmute <player>
+  mutecheck:
+    description: Check mute information for a player.
+    usage: /mutecheck <player>
+    aliases: [checkmute]
+  clearchat:
+    description: Clear the global chat.
+    usage: /clearchat
+    aliases: [cc]
+  chat:
+    description: Toggle global chat or reload the configuration.
+    usage: /chat <toggle|reload>
+
+permissions:
+  chatmoderation.mute:
+    description: Mute players.
+    default: op
+  chatmoderation.unmute:
+    description: Unmute players.
+    default: op
+  chatmoderation.check:
+    description: View mute information.
+    default: op
+  chatmoderation.clear:
+    description: Clear the global chat.
+    default: op
+  chatmoderation.toggle:
+    description: Enable or disable global chat.
+    default: op
+  chatmoderation.bypass:
+    description: Bypass chat restrictions (cooldown, spam, word filter, disabled chat).
+    default: op
+  chatmoderation.admin:
+    description: Reload the plugin configuration.
+    default: op
